@@ -1,2 +1,2 @@
-# JS-Snake
- Snake game, made in JavaScript
+# JSGames
+Collection of games, made in JavaScript.
