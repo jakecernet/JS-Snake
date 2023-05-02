@@ -149,3 +149,52 @@ document.addEventListener("keydown", function (e) {
         snake.dy = 10;
     }
 });
+
+//add event listeners to the touch buttons
+document.getElementById("left").addEventListener("click", function () {
+    if (snake.dx === 0) {
+        snake.dx = -10;
+        snake.dy = 0;
+    }
+});
+
+document.getElementById("up").addEventListener("click", function () {
+    if (snake.dy === 0) {
+        snake.dx = 0;
+        snake.dy = -10;
+    }
+});
+
+document.getElementById("right").addEventListener("click", function () {
+    if (snake.dx === 0) {
+        snake.dx = 10;
+        snake.dy = 0;
+    }
+});
+
+document.getElementById("down").addEventListener("click", function () {
+    if (snake.dy === 0) {
+        snake.dx = 0;
+        snake.dy = 10;
+    }
+});
+
+//add event listener to pause button
+document.getElementById("pause-button").addEventListener("click", function () {
+    if (document.getElementById("pause-button").innerHTML === "Pause") {
+        document.getElementById("pause-button").innerHTML = "Paused";
+        pauseGame();
+    }
+    else {
+        document.getElementById("pause-button").innerHTML = "Pause";
+        startGame();
+    }
+});
+
+//add event listener if window loses focus
+window.addEventListener("blur", function () {
+    if (document.getElementById("pause-button").innerHTML === "Pause") {
+        document.getElementById("pause-button").innerHTML = "Paused";
+        pauseGame();
+    }
+});

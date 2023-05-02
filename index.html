@@ -9,9 +9,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh;
+            height: 100%;
             background-color: #f2f2f2;
             font-family: Arial, sans-serif;
+            overflow: hidden;
         }
 
         h1 {
@@ -54,6 +55,66 @@
         .btn:hover {
             background-color: #3e8e41;
         }
+
+        #play-pause {
+            display: flex;
+            justify-content: space-between;
+            width: 150px;
+            position: absolute;
+            top: 45%;
+            left: 10%;
+        }
+
+        #touchControls {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f7f7f7;
+            box-shadow: 0 2px 4px rgba(100, 100, 100, 0.658);
+            margin-top: 20px;
+            left: 35%;
+            top: -300px;
+        }
+
+        #touchControls button {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            transition: 0.2s ease;
+        }
+
+        #touchControls button:hover {
+            background-color: #3e8e41;
+        }
+
+        #up {
+            top: 0px;
+        }
+
+        #down {
+            bottom: 0px;
+        }
+
+        #left {
+            left: 0px;
+        }
+
+        #right {
+            right: 0px;
+        }
+
+        #game-over {
+            display: block;
+            font-size: 30px;
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -65,9 +126,15 @@
         <span id="speed-value"></span>
     </div>
     <canvas id="canvas" width="400" height="400"></canvas>
-    <div>
+    <div id="play-pause">
         <button id="start-button" class="btn">Start</button>
-        <button id="pause-button" class="btn" style="display:none;">Pause</button>
+        <button id="pause-button" class="btn">Pause</button>
+    </div>
+    <div id="touchControls">
+        <button id="up">Up</button>
+        <button id="down">Down</button>
+        <button id="left">Left</button>
+        <button id="right">Right</button>
     </div>
     <div>
         <a id="game-over" style="display: none;">Game over!</a>
