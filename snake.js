@@ -1,33 +1,31 @@
-// Get canvas element and context
+// Set up the canvas and context
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-// Get speed slider element and value span
+// Set up the speed slider and its value display
 var speedSlider = document.getElementById("speed");
 var speedValue = document.getElementById("speed-value");
 
-// Get start and pause button elements
+// Set up the start and pause buttons
 var startButton = document.getElementById("start-button");
 var pauseButton = document.getElementById("pause-button");
 
-// Define the snake object
+// Set up the snake and the food
 var snake = {
     x: 0,
     y: 0,
+    cells: [],
+    maxCells: 4,
+    speed: parseInt(speedSlider.value),
     dx: 10,
-    dy: 0,
-    cells: [], // An array that will contain the body of the snake
-    maxCells: 4, // The initial length of the snake
-    speed: 5 // The initial speed of the snake
+    dy: 0
 };
-
-// Define the food object
 var food = {
-    x: 0,
-    y: 0
+    x: getRandomCoord(),
+    y: getRandomCoord()
 };
 
-// Generate random coordinates for the food
+// Get a random coordinate that is a multiple of 10 within the canvas
 function getRandomCoord() {
     return Math.floor(Math.random() * (canvas.width / 10)) * 10;
 }
@@ -35,43 +33,40 @@ function getRandomCoord() {
 // Update the position of the snake
 function updateSnake() {
     // Move the snake by adding a new head and removing the tail
+    snake.cells.unshift({ x: snake.x, y: snake.y });
     snake.x += snake.dx;
     snake.y += snake.dy;
-
-    // Add the new head to the front of the snake's body
-    snake.cells.unshift({ x: snake.x, y: snake.y });
-
-    // Remove the tail of the snake's body if it has exceeded the maximum length
     if (snake.cells.length > snake.maxCells) {
         snake.cells.pop();
     }
-}
 
-// Check if the snake has collided with the walls or itself
-if (snake.x < 0 || snake.x >= canvas.width || snake.y < 0 || snake.y >= canvas.height) {
-    gameOver();
-}
-for (var i = 1; i < snake.cells.length; i++) {
-    if (snake.cells[i].x === snake.x && snake.cells[i].y === snake.y) {
+    // Check if the snake has collided with the walls or itself
+    if (snake.x < 0 || snake.x >= canvas.width || snake.y < 0 || snake.y >= canvas.height) {
         gameOver();
-        break;
     }
-}
+    for (var i = 1; i < snake.cells.length; i++) {
+        if (snake.cells[i].x === snake.x && snake.cells[i].y === snake.y) {
+            gameOver();
+            break;
+        }
+    }
 
-// Check if the snake has eaten the food
-if (snake.x === food.x && snake.y === food.y) {
-    // Increase the length of the snake
-    snake.maxCells++;
+    // Check if the snake has eaten the food
+    if (snake.x === food.x && snake.y === food.y) {
+        // Increase the length of the snake
+        snake.maxCells++;
 
-    // Generate new coordinates for the food
-    food.x = getRandomCoord();
-    food.y = getRandomCoord();
+        // Generate new coordinates for the food
+        food.x = getRandomCoord();
+        food.y = getRandomCoord();
+    }
 }
 
 // Draw the snake and the food
 function draw() {
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     // Draw the snake
     ctx.fillStyle = "green";
     snake.cells.forEach(function (cell, index) {
@@ -83,22 +78,23 @@ function draw() {
     ctx.fillRect(food.x, food.y, 10, 10);
 }
 
-// The main game loop
-function loop() {
-    // Update the position of the snake
-    updateSnake();
-    // Draw the snake and the food
-    draw();
-
-    // Set the game loop to run again after a certain amount of time based on the speed of the snake
-    setTimeout(function () {
-        requestAnimationFrame(loop);
-    }, 1000 / snake.speed);
+// Update the speed value display
+function updateSpeedValue() {
+    speedValue.innerHTML = speedSlider.value;
 }
 
 // Start the game
 function startGame() {
-    // Reset the snake and the food
+    // Hide the game over message
+    document.getElementById("game-over").style.display = "none";
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    //reset the speed
+    snake.speed = parseInt(speedSlider.value);
+
+    // Reset the snake
     snake.x = 0;
     snake.y = 0;
     snake.cells = [];
@@ -106,41 +102,50 @@ function startGame() {
     snake.speed = parseInt(speedSlider.value);
     snake.dx = 10;
     snake.dy = 0;
+
+    // Generate new coordinates for the food
     food.x = getRandomCoord();
     food.y = getRandomCoord();
-    // Set up the UI
-    speedValue.textContent = snake.speed;
-    startButton.style.display = "none";
-    pauseButton.style.display = "inline-block";
 
     // Start the game loop
-    loop();
+    gameLoop = setInterval(function () {
+        updateSnake();
+        draw();
+    }, 1000 / snake.speed);
 }
 
 // Pause the game
 function pauseGame() {
-    // Stop the game loop
-    cancelAnimationFrame(loop);
-    // Set up the UI
-    startButton.style.display = "inline-block";
-    pauseButton.style.display = "none";
+    clearInterval(gameLoop);
 }
 
 // End the game
 function gameOver() {
-    // Stop the game loop
-    cancelAnimationFrame(loop);
-    // Set up the UI
-    startButton.style.display = "inline-block";
-    pauseButton.style.display = "none";
-    alert("Game over!");
+    clearInterval(gameLoop);
+    document.getElementById("game-over").style.display = "block";
 }
 
-// Add event listeners for the speed slider and the start and pause buttons
-speedSlider.addEventListener("input", function () {
-    snake.speed = parseInt(speedSlider.value);
-    speedValue.textContent = snake.speed;
-});
-
+// Add event listeners to the speed slider and the start and pause buttons
+speedSlider.addEventListener("input", updateSpeedValue);
 startButton.addEventListener("click", startGame);
 pauseButton.addEventListener("click", pauseGame);
+
+//add event listeners to the arrow keys
+document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft" && snake.dx === 0) {
+        snake.dx = -10;
+        snake.dy = 0;
+    }
+    else if (e.key === "ArrowUp" && snake.dy === 0) {
+        snake.dx = 0;
+        snake.dy = -10;
+    }
+    else if (e.key === "ArrowRight" && snake.dx === 0) {
+        snake.dx = 10;
+        snake.dy = 0;
+    }
+    else if (e.key === "ArrowDown" && snake.dy === 0) {
+        snake.dx = 0;
+        snake.dy = 10;
+    }
+});

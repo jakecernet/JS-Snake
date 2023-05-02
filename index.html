@@ -48,6 +48,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-top: 20px;
+            overflow: hidden;
         }
 
         .btn:hover {
@@ -67,6 +68,9 @@
     <div>
         <button id="start-button" class="btn">Start</button>
         <button id="pause-button" class="btn" style="display:none;">Pause</button>
+    </div>
+    <div>
+        <a id="game-over" style="display: none;">Game over!</a>
     </div>
     <script src="snake.js"></script>
 </body>
