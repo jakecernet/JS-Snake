@@ -4,130 +4,8 @@
 <head>
     <meta charset="utf-8">
     <title>Snake Game</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100%;
-            background-color: #f2f2f2;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
-        }
-
-        h1 {
-            margin-top: 0;
-        }
-
-        canvas {
-            border: 1px solid #000;
-            margin-top: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            margin-right: 10px;
-        }
-
-        .form-group input[type="range"] {
-            width: 200px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-            overflow: hidden;
-        }
-
-        .btn:hover {
-            background-color: #3e8e41;
-        }
-
-        #play-pause {
-            display: flex;
-            justify-content: space-between;
-            width: 150px;
-            position: absolute;
-            top: 45%;
-            left: 10%;
-        }
-
-        #touchControls {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f7f7f7;
-            box-shadow: 0 2px 4px rgba(100, 100, 100, 0.658);
-            margin-top: 20px;
-            left: 35%;
-            top: -300px;
-        }
-
-        #touchControls button {
-            width: 60px;
-            height: 60px;
-            position: absolute;
-            border-radius: 50%;
-            background-color: #4CAF50;
-            transition: 0.2s ease;
-        }
-
-        #touchControls button:hover {
-            background-color: #3e8e41;
-        }
-
-        #up {
-            top: 0px;
-        }
-
-        #down {
-            bottom: 0px;
-        }
-
-        #left {
-            left: 0px;
-        }
-
-        #right {
-            right: 0px;
-        }
-
-        @media screen and (max-width: 600px) {
-            #touchControls {
-                top: 0;
-                left: 0;
-            }
-
-            #play-pause {
-                top: 0;
-                left: 40%;
-            }
-        }
-
-        #game-over {
-            display: block;
-            font-size: 30px;
-            color: red;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="snake.css">
+    <link href="https://fonts.cdnfonts.com/css/games" rel="stylesheet">
 </head>
 
 <body>
@@ -138,15 +16,21 @@
         <span id="speed-value"></span>
     </div>
     <canvas id="canvas" width="400" height="400"></canvas>
+    <div id="score">
+        <span>Score: </span>
+        <span id="score-value">0</span>
+    </div>
     <div id="play-pause">
         <button id="start-button" class="btn">Start</button>
-        <button id="pause-button" class="btn">Pause</button>
+        <button id="pause-button" class="btn">Stop</button>
     </div>
     <div id="touchControls">
-        <button id="up">Up</button>
-        <button id="down">Down</button>
-        <button id="left">Left</button>
-        <button id="right">Right</button>
+        <div class="up"><button id="up">Up</button></div>
+        <div class="lr">
+            <button id="left">Left</button>
+            <button id="right">Right</button>
+        </div>
+        <div class="down"><button id="down">Down</button></div>
     </div>
     <div>
         <a id="game-over" style="display: none;">Game over!</a>

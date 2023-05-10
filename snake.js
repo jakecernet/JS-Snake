@@ -55,6 +55,7 @@ function updateSnake() {
     if (snake.x === food.x && snake.y === food.y) {
         // Increase the length of the snake
         snake.maxCells++;
+        countScore();
 
         // Generate new coordinates for the food
         food.x = getRandomCoord();
@@ -181,20 +182,16 @@ document.getElementById("down").addEventListener("click", function () {
 
 //add event listener to pause button
 document.getElementById("pause-button").addEventListener("click", function () {
-    if (document.getElementById("pause-button").innerHTML === "Pause") {
-        document.getElementById("pause-button").innerHTML = "Paused";
-        pauseGame();
-    }
-    else {
-        document.getElementById("pause-button").innerHTML = "Pause";
-        startGame();
-    }
+    document.getElementById("pause-button").innerHTML = "Stopped";
+    pauseGame();
+
+    // Refresh the page
+    location.reload();
 });
 
-//add event listener if window loses focus
-window.addEventListener("blur", function () {
-    if (document.getElementById("pause-button").innerHTML === "Pause") {
-        document.getElementById("pause-button").innerHTML = "Paused";
-        pauseGame();
-    }
-});
+//count the score
+var score = 0;
+function countScore() {
+    score = snake.maxCells - 4;
+    document.getElementById("score-value").innerHTML = score;
+}

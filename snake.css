@@ -1,0 +1,150 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    background-color: #f2f2f2;
+    font-family: games;
+    overflow: hidden;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+canvas {
+    border: 1px solid #000;
+    margin-top: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    margin-right: 10px;
+}
+
+.form-group input[type="range"] {
+    width: 200px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.btn:hover {
+    background-color: #3e8e41;
+}
+
+#play-pause {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    position: absolute;
+    top: 580px;
+}
+
+#touchControls {
+    display: none;
+}
+
+#up {
+    top: 0px;
+}
+
+#down {
+    bottom: 0px;
+}
+
+#left {
+    left: 0px;
+}
+
+#right {
+    right: 0px;
+}
+
+@media screen and (max-width: 600px) {
+    #touchControls {
+        display: block;
+        bottom: 0px;
+        border: 1px solid #000;
+        border-radius: 5px;
+        top: 500px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #touchControls button {
+        border: none;
+        border-radius: 5px;
+        background-color: #109121;
+        font-size: 30px;
+        font-weight: bold;
+        color: #000;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        height: 50px;
+        width: 150px;
+    }
+
+    #touchControls button:hover {
+        background-color: #0d6e1a;
+    }
+}
+
+#game-over {
+    display: block;
+    font-size: 30px;
+    color: red;
+    font-weight: bold;
+    margin-top: 100px;
+    font-family: games;
+}
+
+#score {
+    display: block;
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#score-value {
+    display: inline-block;
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+    font-family: games;
+}
+
+.lr {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 250px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.up {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
