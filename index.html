@@ -20,20 +20,22 @@
         <span>Score: </span>
         <span id="score-value">0</span>
     </div>
-    <div id="play-pause">
-        <button id="start-button" class="btn">Start</button>
-        <button id="pause-button" class="btn">Stop</button>
-    </div>
     <div id="touchControls">
-        <div class="up"><button id="up">Up</button></div>
-        <div class="lr">
-            <button id="left">Left</button>
-            <button id="right">Right</button>
+        <div id="play-pause">
+            <button id="start-button" class="btn">&#9654;</button>
+            <button id="pause-button" class="btn">Stop</button>
         </div>
-        <div class="down"><button id="down">Down</button></div>
+        <div class="mobile">
+            <div class="up"><button id="up">&uarr;</button></div>
+            <div class="lr">
+                <button id="left">&larr;</button>
+                <button id="right">&rarr;</button>
+            </div>
+            <div class="down"><button id="down">&darr;</button></div>
+        </div>
     </div>
     <div>
-        <a id="game-over" style="display: none;">Game over!</a>
+        <a id="game-over" style="display: none;">Game over</a>
     </div>
     <script src="snake.js"></script>
 
